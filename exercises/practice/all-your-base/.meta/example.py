@@ -7,9 +7,7 @@ def to_digits(number, base_to):
     while number > 0:
         result.append(number % base_to)
         number //= base_to
-    if result:
-        return result[::-1]  # list(reversed(result))
-    return [0]
+    return result[::-1] if result else [0]
 
 
 def rebase(from_base, digits, to_base):

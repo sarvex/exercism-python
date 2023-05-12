@@ -117,7 +117,7 @@ class DominoesTest(unittest.TestCase):
         self.assertEqual(output_chain[0][0], output_chain[-1][1], msg)
 
     def assert_correct_chain(self, input_dominoes, output_chain):
-        msg = "There should be a chain for {}".format(input_dominoes)
+        msg = f"There should be a chain for {input_dominoes}"
         self.assertIsNotNone(output_chain, msg)
         self.assert_same_dominoes(input_dominoes, output_chain)
         if not any(output_chain):
@@ -126,7 +126,7 @@ class DominoesTest(unittest.TestCase):
         self.assert_dominoes_at_ends_match(output_chain)
 
     def refute_correct_chain(self, input_dominoes, output_chain):
-        msg = "There should be no valid chain for {}".format(input_dominoes)
+        msg = f"There should be no valid chain for {input_dominoes}"
         self.assertIsNone(output_chain, msg)
 
 

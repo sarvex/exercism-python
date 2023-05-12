@@ -24,27 +24,23 @@ def check_headers(line):
     pattern = '# (.*)'
     for index in range(6):
         if re.match(pattern, line):
-            return wrap(line[(index + 2):], 'h' + str(index + 1))
-        pattern = '#' + pattern
+            return wrap(line[(index + 2):], f'h{str(index + 1)}')
+        pattern = f'#{pattern}'
     return line
 
 
 def check_bold(line):
     bold_pattern = '(.*)__(.*)__(.*)'
-    bold_match = re.match(bold_pattern, line)
-    if bold_match:
-        return bold_match.group(1) + wrap(bold_match.group(2), 'strong')\
-            + bold_match.group(3)
+    if bold_match := re.match(bold_pattern, line):
+        return bold_match[1] + wrap(bold_match[2], 'strong') + bold_match[3]
     else:
         return None
 
 
 def check_italic(line):
     italic_pattern = '(.*)_(.*)_(.*)'
-    italic_match = re.match(italic_pattern, line)
-    if italic_match:
-        return italic_match.group(1) + wrap(italic_match.group(2), 'em')\
-            + italic_match.group(3)
+    if italic_match := re.match(italic_pattern, line):
+        return italic_match[1] + wrap(italic_match[2], 'em') + italic_match[3]
     else:
         return None
 
@@ -55,15 +51,14 @@ def parse_line(line, in_list, in_list_append):
     list_match = re.match(r'\* (.*)', result)
 
     if list_match:
-        if not in_list:
-            result = '<ul>' + wrap(list_match.group(1), 'li')
-            in_list = True
-        else:
-            result = wrap(list_match.group(1), 'li')
-    else:
         if in_list:
-            in_list_append = True
-            in_list = False
+            result = wrap(list_match[1], 'li')
+        else:
+            result = '<ul>' + wrap(list_match[1], 'li')
+            in_list = True
+    elif in_list:
+        in_list_append = True
+        in_list = False
 
     if not re.match('<h|<ul|<li', result):
         result = wrap(result, 'p')
@@ -78,7 +73,7 @@ def parse_line(line, in_list, in_list_append):
         result = check_italic(result)
 
     if in_list_append:
-        result = '</ul>' + result
+        result = f'</ul>{result}'
         in_list_append = False
 
     return {

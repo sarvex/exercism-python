@@ -47,7 +47,4 @@ class PhoneNumber:
             if number[0] in '023456789':
                 raise ValueError('11 digits must start with 1')
 
-        if valid:
-            return number[-10:]
-
-        return None # [Pylint]: R1710;
+        return number[-10:] if valid else None

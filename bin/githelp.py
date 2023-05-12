@@ -6,7 +6,7 @@ import subprocess
 from typing import Iterator, Union
 
 
-GITHUB_EXERCISM = f"https://github.com/exercism"
+GITHUB_EXERCISM = "https://github.com/exercism"
 
 
 class Repo(Enum):

@@ -4,10 +4,9 @@ ALPHABET = 26
 
 def mod_inverse(a_key, alphabet):
     a_key = a_key % alphabet
-    for idx in range(1, alphabet):
-        if (a_key * idx) % alphabet == 1:
-            return idx
-    return 1
+    return next(
+        (idx for idx in range(1, alphabet) if (a_key * idx) % alphabet == 1), 1
+    )
 
 
 def translate(text, a_key, b_key, mode):

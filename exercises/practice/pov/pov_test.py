@@ -168,4 +168,4 @@ class PovTest(unittest.TestCase):
 
     # Custom Utility Functions
     def assertTreeEquals(self, result, expected):
-        self.assertEqual(result, expected, "{} != {}".format(result, expected))
+        self.assertEqual(result, expected, f"{result} != {expected}")

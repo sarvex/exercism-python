@@ -22,12 +22,9 @@ class Hangman:
         self.update_status()
 
     def update_masked_word(self):
-        self.masked_word = ''
-        for idx in self.word:
-            if idx not in self.guesses:
-                self.masked_word += '_'
-            else:
-                self.masked_word += idx
+        self.masked_word = ''.join(
+            '_' if idx not in self.guesses else idx for idx in self.word
+        )
 
     def update_remaining_guesses(self, char):
         if char not in self.word or char in self.guesses:

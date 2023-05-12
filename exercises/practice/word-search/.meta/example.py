@@ -52,7 +52,6 @@ class WordSearch:
                      for idx in range(self.width) for edx in range(self.height))
         for position in positions:
             for direction in DIRECTIONS:
-                result = self.find(word, position, direction)
-                if result:
+                if result := self.find(word, position, direction):
                     return result
         return None

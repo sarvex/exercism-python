@@ -8,9 +8,10 @@ def combinations(target, size, exclude):
 
     if size == 1:
         return [[target]]
-    else:
-        for index in range(len(possible), 0, -1):
-            for seq in itertools.combinations(possible, index):
-                if sum(seq) == target and len(seq) == size:
-                    result.append(list(seq))
+    for index in range(len(possible), 0, -1):
+        result.extend(
+            list(seq)
+            for seq in itertools.combinations(possible, index)
+            if sum(seq) == target and len(seq) == size
+        )
     return result

@@ -36,9 +36,9 @@ def check_drinks(drink_name, drink_ingredients):
     """
 
     if not ALCOHOLS.isdisjoint(drink_ingredients):
-        return drink_name + ' Cocktail'
+        return f'{drink_name} Cocktail'
 
-    return drink_name + ' Mocktail'
+    return f'{drink_name} Mocktail'
 
 
 def categorize_dish(dish_name, dish_ingredients):
@@ -60,10 +60,14 @@ def categorize_dish(dish_name, dish_ingredients):
                   (PALEO, 'PALEO'),
                   (OMNIVORE, 'OMNIVORE'))
 
-    for category in categories:
-        if set(dish_ingredients) <= category[0]:
-            return dish_name + ': ' + category[1]
-    return None
+    return next(
+        (
+            f'{dish_name}: {category[1]}'
+            for category in categories
+            if set(dish_ingredients) <= category[0]
+        ),
+        None,
+    )
 
 
 def tag_special_ingredients(dish):

@@ -5,9 +5,7 @@ ROW_FMT = '{{:<{1}}} | {{:<{2}}} | {{:{0}{3}}}'
 
 
 def truncate(s, length=25):
-    if len(s) <= length:
-        return s
-    return s[:length - 3] + '...'
+    return s if len(s) <= length else f'{s[:length - 3]}...'
 
 
 class LCInfo:

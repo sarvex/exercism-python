@@ -16,10 +16,10 @@ class SgfTree:
                 return False
         if len(self.children) != len(other.children):
             return False
-        for child, other_child in zip(self.children, other.children):
-            if child != other_child:
-                return False
-        return True
+        return all(
+            child == other_child
+            for child, other_child in zip(self.children, other.children)
+        )
 
     def __ne__(self, other):
         return not self == other

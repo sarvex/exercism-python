@@ -67,7 +67,4 @@ def get_members():
     :return: list of tuples -  [(name1, value1), (name2, value2)]
     """
 
-    out_list = []
-    for member in LogLevel:
-        out_list.append((member.name, member.value))
-    return out_list
+    return [(member.name, member.value) for member in LogLevel]

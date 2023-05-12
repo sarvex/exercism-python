@@ -38,6 +38,4 @@ class Zipper:
         return Zipper(self.ancestors[-1], self.ancestors[:-1])
 
     def to_tree(self):
-        if any(self.ancestors):
-            return self.ancestors[0]
-        return self.tree
+        return self.ancestors[0] if any(self.ancestors) else self.tree

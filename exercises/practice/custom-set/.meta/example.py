@@ -1,6 +1,6 @@
 class CustomSet:
     def __init__(self, elements=None):
-        self.elements = list(elements) if elements is not None else list([])
+        self.elements = list(elements) if elements is not None else []
 
     def isempty(self):
         return not self.elements

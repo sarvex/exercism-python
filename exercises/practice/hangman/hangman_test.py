@@ -20,7 +20,7 @@ class HangmanTests(unittest.TestCase):
     def test_after_10_failures_the_game_is_over(self):
         game = Hangman('foo')
 
-        for i in range(10):
+        for _ in range(10):
             game.guess('x')
 
         self.assertEqual(game.get_status(), hangman.STATUS_LOSE)

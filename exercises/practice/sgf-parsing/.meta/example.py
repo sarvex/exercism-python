@@ -27,11 +27,7 @@ def parse_property_vals(sgf: str, idx: int) -> tuple[int, list[str]]:
         while sgf[idx] != "]":
             # \ has special SGF handling.
             if sgf[idx] == "\\":
-                if sgf[idx:idx + 2] == "\\\n":
-                    # Newlines are removed if they come immediately after a \,
-                    # otherwise they remain as newlines.
-                    pass
-                else:
+                if sgf[idx : idx + 2] != "\\\n":
                     # \ is the escape character. Any non-whitespace character
                     # after \ is inserted as-is
                     prop_val += sgf[idx + 1]

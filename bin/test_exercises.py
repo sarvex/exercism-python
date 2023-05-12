@@ -186,11 +186,11 @@ def main():
         exercises = [
             e for e in exercises if e.slug in opts.exercises
         ]
-        not_found = [
-            slug for slug in opts.exercises
-            if not any(e.slug == slug for e in exercises)
-        ]
-        if not_found:
+        if not_found := [
+            slug
+            for slug in opts.exercises
+            if all(e.slug != slug for e in exercises)
+        ]:
             for slug in not_found:
                 if slug not in exercises:
                     print(f"unknown or disabled exercise '{slug}'")
@@ -204,10 +204,9 @@ def main():
         print('# ', exercise.slug)
         if not exercise.test_file:
             print('FAIL: File with test cases not found')
-            failures.append('{} (FileNotFound)'.format(exercise.slug))
-        else:
-            if check_assignment(exercise, runner=opts.runner, quiet=opts.quiet):
-                failures.append('{} (TestFailed)'.format(exercise.slug))
+            failures.append(f'{exercise.slug} (FileNotFound)')
+        elif check_assignment(exercise, runner=opts.runner, quiet=opts.quiet):
+            failures.append(f'{exercise.slug} (TestFailed)')
         print('')
 
     if failures:

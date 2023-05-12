@@ -38,9 +38,7 @@ class MockFile(io.BytesIO):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         ret = super(MockFile, self).__exit__(exc_type, exc_val, exc_tb)
-        if exc_type is not None and "suppress" in exc_val.args[0]:
-            return True
-        return ret
+        return True if exc_type is not None and "suppress" in exc_val.args[0] else ret
 
     def read(self, size=-1):
         if self.__exception is not None:
@@ -75,9 +73,7 @@ class MockSock:
         self._recver.close()
         self._sender.close()
         self.__closed = True
-        if exc_type is not None and "suppress" in exc_val.args[0]:
-            return True
-        return False
+        return exc_type is not None and "suppress" in exc_val.args[0]
 
     def recv(self, bufsize, flags=0):
         if self.__closed:
@@ -85,9 +81,7 @@ class MockSock:
         if bufsize is None:
             raise TypeError("'NoneType' object cannot be interpreted as an integer")
         if not isinstance(flags, int):
-            raise TypeError(
-                "an integer is required (got type {})".format(type(flags).__name__)
-            )
+            raise TypeError(f"an integer is required (got type {type(flags).__name__})")
         self.flags = flags
         if self.__exception is not None:
             raise self.__exception
@@ -100,9 +94,7 @@ class MockSock:
         if self.__closed:
             raise OSError(errno.EBADF, os.strerror(errno.EBADF))
         if not isinstance(flags, int):
-            raise TypeError(
-                "an integer is required (got type {})".format(type(flags).__name__)
-            )
+            raise TypeError(f"an integer is required (got type {type(flags).__name__})")
         self.flags = flags
         if self.__chunk is None:
             return self._sender.write(data)

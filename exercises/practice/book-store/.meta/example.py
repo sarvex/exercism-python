@@ -21,6 +21,4 @@ def _total(basket):
 
 
 def total(basket):
-    if not basket:
-        return 0
-    return _total(sorted(basket))
+    return 0 if not basket else _total(sorted(basket))

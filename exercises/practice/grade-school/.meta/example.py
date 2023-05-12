@@ -28,9 +28,8 @@ class School:
 
         if grade:
             return sorted(grades_roster[grade])
-        else:
-            working_list = (sorted(grades_roster[key]) for key in sorted(grades_roster.keys()))
-            return [element for item in working_list for element in item]
+        working_list = (sorted(grades_roster[key]) for key in sorted(grades_roster.keys()))
+        return [element for item in working_list for element in item]
 
     def grade(self, grade_number):
         return sorted(self.roster(grade_number))

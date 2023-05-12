@@ -26,9 +26,7 @@ class ConnectGame:
     def player_reach_dest(self, player, width, height):
         if player == self.BLACK:
             return width == self.width - 1
-        if player == self.WHITE:
-            return height == self.height - 1
-        return None
+        return height == self.height - 1 if player == self.WHITE else None
 
     def walk_board(self, player, width, height, visited=None):
         if not visited:
@@ -42,10 +40,19 @@ class ConnectGame:
         if self.player_reach_dest(player, width, height):
             return True
 
-        for vector in self.DIRECTIONS:
-            if self.walk_board(player, width + vector[0], height + vector[1], visited + [(width, height)]):
-                return True
-        return None
+        return next(
+            (
+                True
+                for vector in self.DIRECTIONS
+                if self.walk_board(
+                    player,
+                    width + vector[0],
+                    height + vector[1],
+                    visited + [(width, height)],
+                )
+            ),
+            None,
+        )
 
     def check_player_is_winner(self, player):
         if player == self.BLACK:
@@ -61,6 +68,4 @@ class ConnectGame:
     def get_winner(self):
         if self.check_player_is_winner(self.BLACK):
             return self.BLACK
-        if self.check_player_is_winner(self.WHITE):
-            return self.WHITE
-        return ''
+        return self.WHITE if self.check_player_is_winner(self.WHITE) else ''

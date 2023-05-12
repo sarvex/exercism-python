@@ -17,15 +17,15 @@ def get_extreme_palindrome_with_factors(max_factor, min_factor, extreme):
         factor_pairs = ((factor, palindrome // factor)
                         for factor in range(min_factor, max_factor + 1)
                         if palindrome % factor == 0)
-        factor_pairs = list(pair for pair in factor_pairs
-                            if min_factor <= pair[1] <= max_factor)
-        if len(factor_pairs) > 0:
+        factor_pairs = [
+            pair
+            for pair in factor_pairs
+            if min_factor <= pair[1] <= max_factor
+        ]
+        if factor_pairs:
             break
 
-    if not factor_pairs:
-        return (None, [])
-
-    return (palindrome, factor_pairs)
+    return (None, []) if not factor_pairs else (palindrome, factor_pairs)
 
 
 def reverse_num(number):

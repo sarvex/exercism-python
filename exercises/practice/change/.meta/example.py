@@ -16,10 +16,9 @@ def find_fewest_coins(coins, target):
         min_coins_required[change] = final_result
     if min_coins_required[target] == 1e9:
         raise ValueError("can't make target with given coins")
-    else:
-        last_coin_value = target
-        array = []
-        while last_coin[last_coin_value] != -1:
-            array.append(last_coin_value-last_coin[last_coin_value])
-            last_coin_value = last_coin[last_coin_value]
-        return array
+    last_coin_value = target
+    array = []
+    while last_coin[last_coin_value] != -1:
+        array.append(last_coin_value-last_coin[last_coin_value])
+        last_coin_value = last_coin[last_coin_value]
+    return array

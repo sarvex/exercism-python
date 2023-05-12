@@ -31,11 +31,7 @@ def find_all_available_seats(seats):
     :return: list - list of seat numbers available for reserving..
     """
 
-    available = []
-    for seat_num, value in seats.items():
-        if value is None:
-            available.append(seat_num)
-    return available
+    return [seat_num for seat_num, value in seats.items() if value is None]
 
 
 def current_empty_seat_capacity(seats):
@@ -45,11 +41,7 @@ def current_empty_seat_capacity(seats):
     :return: int - number of seats empty.
     """
 
-    count = 0
-    for value in seats.values():
-        if value is None:
-            count += 1
-    return count
+    return sum(1 for value in seats.values() if value is None)
 
 
 def accommodate_waiting_guests(seats, guests):

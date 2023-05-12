@@ -21,8 +21,7 @@ class Tree:
     def __iter__(self):
         yield self.label
         for child in self.children:
-            for grandchild in child:
-                yield grandchild
+            yield from child
 
     def dup(self):
         return Tree(self.label, [member.dup() for member in self.children])
@@ -54,9 +53,7 @@ class Tree:
             if from_node == tree.label:
                 return tree
 
-            for child in tree.children:
-                stack.append(child.add(tree.remove(child.label)))
-
+            stack.extend(child.add(tree.remove(child.label)) for child in tree.children)
         raise ValueError('Tree could not be reoriented')
 
 

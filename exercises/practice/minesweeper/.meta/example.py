@@ -29,7 +29,7 @@ def annotate(minefield):
 def verify_board(minefield):
     # Rows with different lengths
     row_len = len(minefield[0])
-    if not all(len(row) == row_len for row in minefield):
+    if any(len(row) != row_len for row in minefield):
         raise ValueError('The board is invalid with current input.')
 
     # Unknown character in board

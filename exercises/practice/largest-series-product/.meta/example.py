@@ -4,9 +4,9 @@ from operator import mul
 
 def slices(series, size):
 
-    if not size <= len(series):
+    if size > len(series):
         raise ValueError('span must be smaller than string length')
-    elif not 0 < size:
+    elif size <= 0:
         raise ValueError('span must not be negative')
     elif not all(item.isdigit() for item in series):
         raise ValueError('digits input must only contain digits')

@@ -27,7 +27,7 @@ def get_song():
             if number == 0:
                 chain = swallowed + animal + '.\n'
             elif number == 1:
-                verse += 'It' + phrases[0] + '\n'
+                verse += f'It{phrases[0]}' + '\n'
                 chain = chain.replace('<animal>', animal)
                 verse += chain
                 chain = swallowed + animal + ' that' + phrases[0] + '\n' + chain
@@ -53,11 +53,10 @@ def recite(start_verse, end_verse):
     generated = [verse.strip().split('\n') for verse in verses(get_song())]
     if start_verse == end_verse:
         return generated[start_verse - 1]
-    else:
-        result = []
-        for idx in range(start_verse - 1, end_verse):
-            result += generated[idx] + ['']
+    result = []
+    for idx in range(start_verse - 1, end_verse):
+        result += generated[idx] + ['']
 
-        # Pop out the last empty string
-        result.pop()
-        return result
+    # Pop out the last empty string
+    result.pop()
+    return result

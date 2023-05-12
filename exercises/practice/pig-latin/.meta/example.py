@@ -17,7 +17,7 @@ def translate(text):
     words = []
     for word in text.split():
         if starts_with_vowel_sound(word):
-            words.append(word + 'ay')
+            words.append(f'{word}ay')
         else:
             head, tail = split_initial_consonant_sound(word)
             words.append(tail + head + 'ay')

@@ -21,7 +21,7 @@ def dig_perms(digit_set, non_zero_chars, ok_zero_chars):
     total_count = non_zero_count + ok_zero_count  # Total number of letters
     if total_count < 1:  # if total numbers of letters is 0
         return [()]  # return a singe empty permutation
-    non_zero_digit_set = digit_set - set((0,))  # generate a non-zero digit set
+    non_zero_digit_set = digit_set - {0}
     available_zero_digit_count = len(non_zero_digit_set)  # how many non-zero digits are available
     ok_zero_digit_count = len(digit_set)  # how many ok zero digits are available
     # if either fewer digits than letters at all or fewer non-0 digits
@@ -71,12 +71,7 @@ def check_rec(eqparams, trace_combo=({}, 0, set(range(10))), power=0):
     # is reached
     if power == max_digit_rank:
         # Carry-over is zero, meaning solution is found
-        if carry_over == 0:
-            return prev_digits
-        else:
-            # Otherwise the solution in this branch is not found
-            # return empty
-            return {}
+        return prev_digits if carry_over == 0 else {}
     digit_letters = unique_chars[power]  # all new unique letters from the current level
     part_sum = carry_over  # Carry over from lower level
     remaining_exp = []  # TBD letters
@@ -93,13 +88,14 @@ def check_rec(eqparams, trace_combo=({}, 0, set(range(10))), power=0):
         # build the dictionary for the new letters and this level
         new_dict = dict(zip(digit_letters, newdigs))
         # complete the partial sum into test sum using the current permutation
-        testsum = part_sum + sum([new_dict[caesar] * van_gogh
-                                 for caesar, van_gogh in remaining_exp])
+        testsum = part_sum + sum(
+            new_dict[caesar] * van_gogh for caesar, van_gogh in remaining_exp
+        )
         # check if the sum is divisible by 10
         dali, rembrandt = divmod(testsum, 10)
         if rembrandt == 0:
             # if divisible, update the dictionary to all established
-            new_dict.update(prev_digits)
+            new_dict |= prev_digits
             # proceed to the next level of recursion with
             # the same eqparams, but updated digit dictionary,
             # new carry over and remaining digits to assign
@@ -127,7 +123,7 @@ def solve(puzzle):
                for sigmund in puzzle.strip().upper().split('==')]
     # Find the maximal lenght of the work, maximal possive digit rank or
     # the power of 10, should the < maxp
-    max_digit_rank = max([len(warhol) for sigmund in full_exp for warhol in sigmund])
+    max_digit_rank = max(len(warhol) for sigmund in full_exp for warhol in sigmund)
     # Extract the leading letters for each (reversed) word
     # those cannot be zeros as the number cannot start with 0
     nzchars = {warhol[-1] for sigmund in full_exp for warhol in sigmund}

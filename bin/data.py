@@ -18,7 +18,7 @@ def _custom_dataclass_init(self, *args, **kwargs):
         try:
             name = names.pop(0)
         except IndexError:
-            raise TypeError(f"__init__() given too many positional arguments")
+            raise TypeError("__init__() given too many positional arguments")
         # print(f'setting {k}={v}')
         setattr(self, name, value)
         used_names.add(name)
@@ -116,9 +116,8 @@ class ExerciseFiles:
                 raise ValueError(
                     "exercise config must have either files.exemplar or files.example"
                 )
-            else:
-                self.exemplar = self.example
-                delattr(self, "example")
+            self.exemplar = self.example
+            delattr(self, "example")
         elif self.example is not None:
             raise ValueError(
                 "exercise config must have either files.exemplar or files.example, but not both"

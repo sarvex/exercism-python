@@ -17,11 +17,10 @@ except ImportError as import_fail:
         # pylint: disable=raise-missing-from
         raise ImportError(f'We can not find or import the constant {item_name} in your'
                           " 'lasagna.py' file. Did you mis-name or forget to define it?")
-    else:
-        item_name = item_name[:-1] + "()'"
-        # pylint: disable=raise-missing-from
-        raise ImportError("In your 'lasagna.py' file, we can not find or import the"
-                          f' function named {item_name}. Did you mis-name or forget to define it?')
+    item_name = f"{item_name[:-1]}()'"
+    # pylint: disable=raise-missing-from
+    raise ImportError("In your 'lasagna.py' file, we can not find or import the"
+                      f' function named {item_name}. Did you mis-name or forget to define it?')
 
 
 class LasagnaTest(unittest.TestCase):

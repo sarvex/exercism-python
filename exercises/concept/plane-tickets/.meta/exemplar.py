@@ -40,10 +40,7 @@ def assign_seats(passengers):
     """
 
     amount = len(passengers)
-    output = {}
-    for passenger, seat_number in zip(passengers, generate_seats(amount)):
-        output[passenger] = seat_number
-    return output
+    return dict(zip(passengers, generate_seats(amount)))
 
 def generate_codes(seat_numbers, flight_id):
 

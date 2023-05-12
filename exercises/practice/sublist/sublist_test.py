@@ -68,7 +68,7 @@ class SublistTest(unittest.TestCase):
 
     # Additional tests for this track
     def test_unique_return_values(self):
-        self.assertEqual(len(set([SUBLIST, SUPERLIST, EQUAL, UNEQUAL])), 4)
+        self.assertEqual(len({SUBLIST, SUPERLIST, EQUAL, UNEQUAL}), 4)
 
     def test_inner_spaces(self):
         self.assertEqual(sublist(["a c"], ["a", "c"]), UNEQUAL)

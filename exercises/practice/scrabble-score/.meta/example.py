@@ -9,6 +9,4 @@ POINTS = {
 
 
 def score(word):
-    if not word.isalpha():
-        return 0
-    return sum(POINTS[letter] for letter in word.lower())
+    return sum(POINTS[letter] for letter in word.lower()) if word.isalpha() else 0

@@ -28,12 +28,11 @@ class BinarySearchTree:
                 else:
                     cur_node.left = TreeNode(data)
                     inserted = True
-            elif data > cur_node.data:
-                if cur_node.right:
-                    cur_node = cur_node.right
-                else:
-                    cur_node.right = TreeNode(data)
-                    inserted = True
+            elif cur_node.right:
+                cur_node = cur_node.right
+            else:
+                cur_node.right = TreeNode(data)
+                inserted = True
 
     def _inorder_traverse(self, node, elements):
         if node is not None:

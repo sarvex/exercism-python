@@ -109,9 +109,7 @@ def parse_datetime(string: str, strip_module: bool = False) -> datetime:
         from datetime import datetime
     """
     result = repr(parse(string))
-    if strip_module:
-        return result.replace("datetime.", "", 1)
-    return result
+    return result.replace("datetime.", "", 1) if strip_module else result
 
 INVALID_ESCAPE_RE = re.compile(
     r"""
@@ -213,8 +211,7 @@ def filter_test_cases(cases: List[TypeJSON], opts: TestsTOML) -> List[TypeJSON]:
             else:
                 logger.debug(f"uuid {uuid} either missing or not marked for include")
         elif "cases" in case:
-            subfiltered = filter_test_cases(case["cases"], opts)
-            if subfiltered:
+            if subfiltered := filter_test_cases(case["cases"], opts):
                 case_copy = dict(case)
                 case_copy["cases"] = subfiltered
                 filtered.append(case_copy)
@@ -345,10 +342,9 @@ def generate_exercise(env: Environment, spec_path: Path, exercise: Path, check: 
 
         if check:
             return check_template(slug, tests_path, tmpfile)
-        else:
-            logger.debug(f"{slug}: moving tmp file {tmpfile}->{tests_path}")
-            shutil.move(tmpfile, tests_path)
-            print(f"{slug} generated at {tests_path}")
+        logger.debug(f"{slug}: moving tmp file {tmpfile}->{tests_path}")
+        shutil.move(tmpfile, tests_path)
+        print(f"{slug} generated at {tests_path}")
     except (TypeError, UndefinedError, SyntaxError) as e:
         logger.debug(str(e))
         logger.error(f"{slug}: generation failed")

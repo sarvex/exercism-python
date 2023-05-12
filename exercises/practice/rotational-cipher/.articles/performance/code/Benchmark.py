@@ -45,13 +45,12 @@ def rotate_recursion(text, key):
     if text == "":
         return ""
     first_letter, rest = text[0], text[1:]
-    if first_letter.isalpha():
-        if first_letter.isupper():
-            return AlPHABET[(AlPHABET.index(first_letter.lower()) + key) % 26].upper() + rotate_recursion(rest, key)
-        else:
-            return AlPHABET[(AlPHABET.index(first_letter) + key) % 26] + rotate_recursion(rest, key)
-    else:
+    if not first_letter.isalpha():
         return first_letter + rotate_recursion(rest, key)
+    if first_letter.isupper():
+        return AlPHABET[(AlPHABET.index(first_letter.lower()) + key) % 26].upper() + rotate_recursion(rest, key)
+    else:
+        return AlPHABET[(AlPHABET.index(first_letter) + key) % 26] + rotate_recursion(rest, key)
 
 
 

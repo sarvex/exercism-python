@@ -12,9 +12,8 @@ class RestAPI:
             for debtor in list(owed_by.keys()):
                 if debtor in owes:
                     diff = 0
-                    if debtor in owes:
-                        diff = owes[debtor]
-                        del owes[debtor]
+                    diff = owes[debtor]
+                    del owes[debtor]
                     if debtor in owed_by:
                         diff -= owed_by[debtor]
                         del owed_by[debtor]
@@ -47,11 +46,7 @@ class RestAPI:
             if payload is not None:
                 name = payload['user']
                 users = self.database['users']
-                user = None
-                for idx in users:
-                    if idx['name'] == name:
-                        user = idx
-                        break
+                user = next((idx for idx in users if idx['name'] == name), None)
                 if user is None:
                     new_user = {
                         'name': name,

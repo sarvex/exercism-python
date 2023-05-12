@@ -2,7 +2,4 @@
 
 
 def accumulate(collection, operation):
-    response = []
-    for ellement in collection:
-        response.append(operation(ellement))
-    return response
+    return [operation(ellement) for ellement in collection]

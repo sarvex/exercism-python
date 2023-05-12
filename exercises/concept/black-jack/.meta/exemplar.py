@@ -17,15 +17,13 @@ def value_of_card(card):
     """
 
     if card in ('JQK'):
-        value = 10
+        return 10
 
     elif card == 'A':
-        value = 1
+        return 1
 
     else:
-        value = int(card)
-
-    return value
+        return int(card)
 
 
 def higher_card(card_one, card_two):
@@ -43,15 +41,13 @@ def higher_card(card_one, card_two):
     card_two_value = value_of_card(card_two)
 
     if card_one_value == card_two_value:
-        result = card_one, card_two
+        return card_one, card_two
 
     elif card_one_value > card_two_value:
-        result = card_one
+        return card_one
 
     else:
-        result = card_two
-
-    return result
+        return card_two
 
 
 def value_of_ace(card_one, card_two):
@@ -68,9 +64,7 @@ def value_of_ace(card_one, card_two):
     card_one_value = 11 if card_one == 'A' else value_of_card(card_one)
     card_two_value = 11 if card_two == 'A' else value_of_card(card_two)
 
-    ace_value = 1 if 11 + (card_one_value + card_two_value) > 21 else 11
-
-    return ace_value
+    return 1 if card_one_value + card_two_value > 10 else 11
 
 
 def is_blackjack(card_one, card_two):

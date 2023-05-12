@@ -13,9 +13,13 @@ PARTS = [('lay in', 'the house that Jack built.'),
 
 
 def verse(verse_num):
-    verse = [f'This is {PARTS[verse_num][1]}']
-    verse.extend(['that {0} {1}'.format(*PARTS[idx])
-              for idx in range(verse_num - 1, -1, -1)])
+    verse = [
+        f'This is {PARTS[verse_num][1]}',
+        *[
+            'that {0} {1}'.format(*PARTS[idx])
+            for idx in range(verse_num - 1, -1, -1)
+        ],
+    ]
     return ' '.join(verse)
 
 

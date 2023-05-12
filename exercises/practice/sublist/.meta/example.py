@@ -9,9 +9,7 @@ def sublist(list_one, list_two):
         return EQUAL
     if contains(list_one, list_two):
         return SUPERLIST
-    if contains(list_two, list_one):
-        return SUBLIST
-    return UNEQUAL
+    return SUBLIST if contains(list_two, list_one) else UNEQUAL
 
 
 def contains(list_one, list_two):
